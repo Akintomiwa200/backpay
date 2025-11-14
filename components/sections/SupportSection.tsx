@@ -113,7 +113,7 @@ const SupportSection = () => {
   return (
     <motion.section
       ref={sectionRef}
-      className="relative bg-[#eef3fc] py-24 overflow-hidden"
+      className="relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-24 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center gap-12">
         {/* Phone and Support Chat */}
@@ -121,7 +121,7 @@ const SupportSection = () => {
           {/* Floating Support Agent Bubble */}
           <motion.div
             ref={supportAgentRef}
-            className="absolute -top-10 left-0 translate-x-1/2 z-20 flex items-center space-x-4 bg-white rounded-full shadow-lg px-8 py-6 min-w-[280px]"
+            className="absolute -top-10 left-0 translate-x-1/2 z-20 flex items-center space-x-4 bg-white dark:bg-gray-800 rounded-full shadow-lg px-8 py-6 min-w-[280px] border border-gray-200 dark:border-gray-700"
             variants={supportAgentVariants}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
@@ -131,27 +131,17 @@ const SupportSection = () => {
               variants={floatingAnimation}
               animate="animate"
             >
-              {/* Simple bot avatar */}
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="16" cy="16" r="16" fill="#2563EB" />
-                <ellipse cx="16" cy="20" rx="8" ry="5" fill="#fff" />
-                <circle cx="12" cy="15" r="2" fill="#fff" />
-                <circle cx="20" cy="15" r="2" fill="#fff" />
-                <ellipse cx="16" cy="22" rx="3" ry="1.5" fill="#2563EB" />
-              </svg>
+              {/* BackPay bot avatar */}
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">B</span>
+              </div>
             </motion.span>
             <div>
-              <div className="font-semibold text-gray-900 text-base">
-                Laskad Support
+              <div className="font-semibold text-gray-900 dark:text-white text-base">
+                BackPay Support
               </div>
-              <div className="text-sm text-gray-500">
-                Hey 👋, How can I help
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Need help with crypto? 👋
               </div>
             </div>
           </motion.div>
@@ -164,17 +154,20 @@ const SupportSection = () => {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
           >
-            <div className="absolute inset-0 bg-black rounded-[3rem] shadow-2xl">
-              <div className="absolute inset-2 bg-black rounded-[2.5rem] overflow-hidden">
-                <div className="h-full w-full bg-black flex flex-col justify-end p-6 relative">
-                  {/* Status Bar */}
-                  <div className="absolute top-0 left-0 w-full flex justify-between items-center px-6 pt-4 text-sm text-white">
-                    <span>4:13</span>
-                    <div className="flex items-center space-x-1">
-                      <div className="w-4 h-2 bg-white rounded-sm"></div>
-                      <div className="w-6 h-2 bg-white rounded-sm"></div>
-                      <div className="w-6 h-3 border border-white rounded-sm">
-                        <div className="w-4 h-2 bg-white rounded-sm ml-0.5 mt-0.5"></div>
+            <div className="absolute inset-0 bg-green-500 rounded-[3rem] shadow-2xl">
+              <div className="absolute inset-2 bg-white dark:bg-gray-900 rounded-[2.5rem] overflow-hidden">
+                <div className="h-full w-full bg-gray-50 dark:bg-gray-800 flex flex-col justify-end p-6 relative">
+                  {/* WhatsApp Header */}
+                  <div className="absolute top-0 left-0 w-full bg-green-500 text-white p-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                        <span className="text-green-500 text-xs font-bold">B</span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-sm">BackPay</div>
+                        <div className="text-xs text-green-100">
+                          Online • Web3 Support
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -182,72 +175,107 @@ const SupportSection = () => {
                   {/* Chat Bubbles */}
                   <motion.div
                     ref={chatBubblesRef}
-                    className="flex flex-col space-y-2 mt-16"
+                    className="flex flex-col space-y-4 mt-16"
                     variants={chatBubblesContainerVariants}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
                   >
+                    {/* User Messages */}
                     <motion.div
-                      className="self-end bg-primary-600 text-white px-4 py-2 rounded-2xl text-sm w-fit"
+                      className="self-end bg-blue-500 text-white px-4 py-3 rounded-2xl rounded-br-none text-sm max-w-xs"
                       variants={chatBubbleVariants}
                     >
-                      I have an issue
+                      My ETH transaction is pending for hours
                     </motion.div>
 
                     <motion.div
-                      className="self-end bg-primary-600 text-white px-4 py-2 rounded-2xl text-sm w-fit"
+                      className="self-end bg-blue-500 text-white px-4 py-3 rounded-2xl rounded-br-none text-sm max-w-xs"
                       variants={chatBubbleVariants}
                     >
-                      My transaction failed
+                      Can you check the status?
                     </motion.div>
 
+                    {/* Support Responses */}
                     <motion.div
-                      className="self-start bg-gray-800 text-white px-4 py-2 rounded-2xl text-sm w-fit max-w-[220px]"
+                      className="self-start bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 rounded-2xl rounded-tl-none text-sm max-w-xs"
                       variants={chatBubbleVariants}
                     >
-                      I&apos;m sorry to hear that your transaction failed. Could
-                      you please provide the transaction reference number or a
-                      receipt for the failed transaction?
+                      I can help check your transaction status. Could you share the transaction hash?
                     </motion.div>
 
-                    {/* Receipt Card */}
+                    {/* Transaction Hash Card */}
                     <motion.div
                       className="self-end"
                       variants={chatBubbleVariants}
                     >
-                      <div className="bg-white rounded-xl shadow p-3 w-48">
-                        <div className="text-xs text-gray-500 mb-1">
-                          ₦1,000.00
+                      <div className="bg-blue-50 dark:bg-gray-700 rounded-xl p-3 max-w-xs border border-blue-200 dark:border-gray-600">
+                        <div className="text-xs text-blue-600 dark:text-blue-400 font-mono mb-1">
+                          0x7d9e8a2b4c6f1a3d8b5e9f2c7a4b6d8e1f3a5c7
                         </div>
-                        <div className="text-xs text-gray-500">
-                          On 6/13/2023
-                        </div>
-                        <div className="text-xs text-gray-700 mt-2">
-                          Recipient:{' '}
-                          <span className="font-semibold">John Doe</span>
-                        </div>
-                        <div className="text-xs text-gray-700">
-                          Account:{' '}
-                          <span className="font-semibold">1234567890</span>
-                        </div>
-                        <div className="text-xs text-gray-700">
-                          Reference:{' '}
-                          <span className="font-semibold">876543210</span>
-                        </div>
-                        <div className="text-xs text-green-600 font-semibold mt-2">
-                          Complete
+                        <div className="text-xs text-gray-500 dark:text-gray-400 flex justify-between">
+                          <span>0.1 ETH</span>
+                          <span>2 hours ago</span>
                         </div>
                       </div>
                     </motion.div>
 
+                    {/* Support Response with Status */}
                     <motion.div
-                      className="self-start bg-gray-800 text-white px-4 py-2 rounded-2xl text-sm w-fit max-w-[220px]"
+                      className="self-start bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 rounded-2xl rounded-tl-none text-sm max-w-xs"
                       variants={chatBubbleVariants}
                     >
-                      Thank you for providing the details. We will investigate
-                      the failed transaction.
+                      ✅ Transaction found! It's pending due to network congestion. 
+                      <div className="mt-2 flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                        <span className="text-xs text-yellow-600 dark:text-yellow-400">
+                          Estimated: 15-30 min
+                        </span>
+                      </div>
+                    </motion.div>
+
+                    {/* Gas Suggestion */}
+                    <motion.div
+                      className="self-start bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 rounded-2xl rounded-tl-none text-sm max-w-xs"
+                      variants={chatBubbleVariants}
+                    >
+                      💡 Pro tip: Use higher gas fees during peak times for faster confirmations.
+                    </motion.div>
+
+                    {/* User Thanks */}
+                    <motion.div
+                      className="self-end bg-blue-500 text-white px-4 py-3 rounded-2xl rounded-br-none text-sm max-w-xs"
+                      variants={chatBubbleVariants}
+                    >
+                      Thanks! How do I check gas prices?
+                    </motion.div>
+
+                    {/* Helpful Response */}
+                    <motion.div
+                      className="self-start bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-3 rounded-2xl rounded-tl-none text-sm max-w-xs"
+                      variants={chatBubbleVariants}
+                    >
+                      Type "gas prices" to see current network fees, or "help" for more commands! 🚀
                     </motion.div>
                   </motion.div>
+
+                  {/* Input Area */}
+                  <div className="mt-4 flex items-center space-x-2 bg-white dark:bg-gray-900 rounded-full px-4 py-2 border border-gray-200 dark:border-gray-700">
+                    <button className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                    <input
+                      type="text"
+                      placeholder="Type a message..."
+                      className="flex-1 bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-500 text-sm outline-none"
+                    />
+                    <button className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -260,7 +288,7 @@ const SupportSection = () => {
               animate={isInView ? 'visible' : 'hidden'}
             >
               <motion.div
-                className="absolute -left-10 bottom-10 bg-primary-600 text-white px-4 py-2 rounded-full shadow-lg rotate-[-20deg] text-xs font-semibold"
+                className="absolute -left-10 bottom-10 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg rotate-[-20deg] text-xs font-semibold"
                 variants={decorativeShapeVariants}
                 whileHover={{
                   scale: 1.1,
@@ -268,11 +296,11 @@ const SupportSection = () => {
                   transition: { duration: 0.2 },
                 }}
               >
-                Transfer
+                Gas Help
               </motion.div>
 
               <motion.div
-                className="absolute left-1/2 bottom-0 -translate-x-1/2 bg-gradient-to-tr from-pink-500 via-purple-500 to-primary-500 w-20 h-20 rounded-3xl blur-xl opacity-80"
+                className="absolute left-1/2 bottom-0 -translate-x-1/2 bg-gradient-to-tr from-blue-500 via-purple-500 to-green-500 w-20 h-20 rounded-3xl blur-xl opacity-80"
                 variants={decorativeShapeVariants}
                 animate={{
                   scale: [1, 1.2, 1],
@@ -297,46 +325,67 @@ const SupportSection = () => {
           animate={isInView ? 'visible' : 'hidden'}
         >
           <motion.span
-            className="uppercase text-primary-600 font-semibold tracking-wider text-sm mb-2 block"
+            className="uppercase text-blue-600 font-semibold tracking-wider text-sm mb-2 block"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Self Support
+            Crypto Support
           </motion.span>
 
           <motion.h2
-            className="text-4xl md:text-5xl font-bold text-primary-600 mb-4"
+            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Get Help
+            Web3 Support
             <br />
-            <span className="text-primary-600">Without the Wait</span>
+            <span className="text-blue-600 dark:text-blue-400">in Your Pocket</span>
           </motion.h2>
 
           <motion.p
-            className="text-lg text-primary-600 mb-8"
+            className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            No call centers, no hold music. Laskad answers your questions
-            instantly with smart, in-app support.
+            Get instant help with crypto transactions, gas fees, and blockchain questions. 
+            BackPay's AI support understands Web3 terminology and provides real-time assistance.
           </motion.p>
+
+          {/* Support Features */}
+          <motion.div
+            className="space-y-4 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            {[
+              '✅ Real-time transaction status checks',
+              '🚀 Gas fee optimization tips',
+              '🔍 Blockchain explorer integration',
+              '💬 Web3 terminology support',
+              '🌐 Multi-chain assistance',
+              '⚡ Instant response 24/7'
+            ].map((feature, index) => (
+              <div key={index} className="flex items-center space-x-3">
+                <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
+              </div>
+            ))}
+          </motion.div>
 
           <motion.button
             onClick={() => {
               const message = encodeURIComponent(
-                "Hi, I'd like to get started with Laskad!"
+                "Hi, I need help with a crypto transaction!"
               );
-              window.open(`https://wa.me/2349065577709?text=Hi`, '_blank');
+              window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
             }}
-            className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold text-base hover:bg-primary-600 transition-colors"
+            className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-blue-700 transition-colors dark:bg-blue-500 dark:hover:bg-blue-600"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
             whileHover={{
               scale: 1.05,
               transition: { duration: 0.2 },
@@ -346,7 +395,7 @@ const SupportSection = () => {
               transition: { duration: 0.1 },
             }}
           >
-            Try It Out
+            Get Crypto Help
           </motion.button>
         </motion.div>
       </div>

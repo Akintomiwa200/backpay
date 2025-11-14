@@ -22,7 +22,7 @@ const SecuritySection = () => {
       y: 0,
       transition: {
         duration: 1,
-        ease: [0.25, 0.46, 0.45, 0.94], // power3.out equivalent
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
@@ -35,7 +35,7 @@ const SecuritySection = () => {
       transition: {
         duration: 1,
         delay: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94], // power3.out equivalent
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
@@ -75,7 +75,7 @@ const SecuritySection = () => {
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: [0.165, 0.84, 0.44, 1], // power2.out equivalent
+        ease: [0.165, 0.84, 0.44, 1],
       },
     },
   };
@@ -109,7 +109,7 @@ const SecuritySection = () => {
   return (
     <motion.section
       ref={sectionRef}
-      className="bg-gradient-to-br from-gray-50 via-primary-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-20 overflow-hidden"
+      className="bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-20 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -120,91 +120,87 @@ const SecuritySection = () => {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
           >
-            {/* Existing content */}
             <div className="space-y-6">
               <div className="inline-block">
-                <span className="bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300 px-4 py-2 rounded-full text-sm font-medium uppercase tracking-wide">
-                  Smart Banking
+                <span className="bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-medium uppercase tracking-wide">
+                  Web3 Security
                 </span>
               </div>
 
               <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-gray-900 dark:text-white">
-                Banking Made <br />
-                Simple Through WhatsApp
+                Bank-Grade Security{' '}
+                <br />
+                on Blockchain
               </h2>
 
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                Laskad transforms your WhatsApp into a powerful financial
-                assistant that helps you manage money, make payments, and track
-                expenses — all through natural conversation.
+                BackPay combines the convenience of WhatsApp with the security of blockchain technology. 
+                Your private keys are encrypted, transactions are immutable, and your funds are always secure.
               </p>
+            </div>
+
+            {/* Security Features */}
+            <div className="space-y-4">
+              {[
+                {
+                  icon: '🔐',
+                  title: 'Encrypted Private Keys',
+                  description: 'Your wallet keys are securely encrypted and never leave your device'
+                },
+                {
+                  icon: '🛡️',
+                  title: 'Immutable Transactions',
+                  description: 'Every transaction is permanently recorded on the blockchain'
+                },
+                {
+                  icon: '🔍',
+                  title: 'Transparent Tracking',
+                  description: 'Monitor all transactions with real-time blockchain explorers'
+                },
+                {
+                  icon: '⚡',
+                  title: 'Instant Verification',
+                  description: 'Smart contracts ensure instant transaction verification'
+                }
+              ].map((feature, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-lg">{feature.icon}</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => {
                   const message = encodeURIComponent(
-                    "Hi, I'd like to get started with Laskad!"
+                    "Hi, I'd like to get started with BackPay!"
                   );
-                  window.open(`https://wa.me/2349065577709?text=Hi`, '_blank');
+                  window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
                 }}
-                className="bg-primary-600 text-white dark:bg-white dark:text-black px-8 py-4 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+                className="bg-blue-600 text-white dark:bg-blue-500 dark:hover:bg-blue-600 px-8 py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
               >
-                Get Started
+                Start Securely
+              </button>
+              <button
+                onClick={() => window.open('/security', '_blank')}
+                className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-8 py-4 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                Learn About Security
               </button>
             </div>
-
-            {/* Floating Context Icons */}
-            <motion.div
-              ref={iconsRef}
-              className="hidden lg:block absolute -right-24 top-1/4 space-y-6"
-              variants={iconsContainerVariants}
-              initial="hidden"
-              animate={isInView ? 'visible' : 'hidden'}
-            >
-              {[
-                {
-                  color: 'bg-primary-500',
-                  icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',
-                },
-                {
-                  color: 'bg-green-500',
-                  icon: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
-                },
-                { color: 'bg-yellow-500', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
-                {
-                  color: 'bg-purple-500',
-                  icon: 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z',
-                },
-                {
-                  color: 'bg-red-500',
-                  icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className={`w-16 h-16 ${item.color} rounded-3xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform`}
-                  variants={iconVariants}
-                >
-                  <svg
-                    className="w-8 h-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d={item.icon}
-                    />
-                  </svg>
-                </motion.div>
-              ))}
-            </motion.div>
           </motion.div>
 
-          {/* Right Content - Phone Mockup */}
+          {/* Right Content - WhatsApp Crypto Security Demo */}
           <motion.div
             ref={phoneRef}
             className="relative"
@@ -212,222 +208,168 @@ const SecuritySection = () => {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
           >
-            {/* Existing phone mockup content */}
             <motion.div
               className="relative mx-auto w-80 h-[600px]"
               variants={floatingPhoneVariants}
               animate={isInView ? 'animate' : 'static'}
             >
               {/* Phone Frame */}
-              <div className="absolute inset-0 bg-black rounded-[3rem] shadow-2xl transform transition duration-500 hover:scale-105">
-                <div className="absolute inset-2 bg-black rounded-[2.5rem] overflow-hidden">
+              <div className="absolute inset-0 bg-green-500 rounded-[3rem] shadow-2xl transform transition duration-500 hover:scale-105">
+                <div className="absolute inset-2 bg-white dark:bg-gray-900 rounded-[2.5rem] overflow-hidden">
                   {/* Screen Content */}
-                  <div className="h-full bg-gradient-to-b from-gray-900 to-black text-white relative">
-                    {/* Status Bar */}
-                    <div className="flex justify-between items-center px-6 pt-4 text-sm">
-                      <span>12:47</span>
-                      <div className="flex items-center space-x-1">
-                        <div className="w-4 h-2 bg-white rounded-sm"></div>
-                        <div className="w-6 h-2 bg-white rounded-sm"></div>
-                        <div className="w-6 h-3 border border-white rounded-sm">
-                          <div className="w-4 h-2 bg-white rounded-sm ml-0.5 mt-0.5"></div>
+                  <div className="h-full bg-gray-50 dark:bg-gray-800 text-white relative">
+                    {/* WhatsApp Header */}
+                    <div className="bg-green-500 text-white p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                          <span className="text-green-500 text-xs font-bold">B</span>
                         </div>
-                      </div>
-                    </div>
-
-                    {/* Chat Header */}
-                    <div className="flex items-center px-6 py-4 border-b border-gray-700">
-                      <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-xs font-bold">
-                        L
-                      </div>
-                      <div className="ml-3">
-                        <div className="font-medium text-sm">Laskad</div>
-                      </div>
-                      <div className="ml-auto flex items-center space-x-4">
-                        <svg
-                          className="w-5 h-5 text-primary-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                          />
-                        </svg>
-                        <svg
-                          className="w-5 h-5 text-primary-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                          />
-                        </svg>
+                        <div>
+                          <div className="font-medium text-sm">BackPay</div>
+                          <div className="text-xs text-green-100">
+                            Online • Web3 Secure
+                          </div>
+                        </div>
                       </div>
                     </div>
 
                     {/* Chat Messages */}
-                    <div className="px-6 py-4 space-y-4 flex-1">
-                      {/* User Message */}
-                      <div className="flex justify-end">
-                        <div className="bg-green-600 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">Send 2k to my GTB</p>
-                          <p className="text-xs text-green-200 mt-1">
-                            12:47 PM
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Laskad Response */}
+                    <div className="px-4 py-4 space-y-4 flex-1">
+                      {/* Welcome Security Message */}
                       <div className="flex items-start space-x-2">
-                        <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
-                          L
+                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          B
                         </div>
-                        <div className="bg-gray-800 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">
-                            Please enter the recipient's account number for your
-                            GTB.
+                        <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 max-w-xs">
+                          <p className="text-sm text-gray-800 dark:text-gray-200">
+                            🔒 Your wallet is now secured with military-grade encryption
                           </p>
-                          <p className="text-xs text-gray-400 mt-1">12:47 PM</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            Private keys encrypted locally
+                          </p>
                         </div>
                       </div>
 
-                      {/* User Response */}
+                      {/* User Balance Check */}
                       <div className="flex justify-end">
-                        <div className="bg-green-600 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">
-                            The last GTBank I sent money to
-                          </p>
-                          <p className="text-xs text-green-200 mt-1">
-                            12:47 PM
-                          </p>
+                        <div className="bg-blue-500 rounded-2xl rounded-br-none px-4 py-3 max-w-xs">
+                          <p className="text-sm">balance</p>
                         </div>
                       </div>
 
-                      {/* Laskad Smart Response */}
+                      {/* Balance Response */}
                       <div className="flex items-start space-x-2">
-                        <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
-                          L
+                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          B
                         </div>
-                        <div className="bg-gray-800 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">
-                            Do you mean account number 0240256606?
+                        <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 max-w-xs">
+                          <p className="text-sm text-gray-800 dark:text-gray-200">
+                            💰 Your Balance:
                           </p>
-                          <p className="text-xs text-gray-400 mt-1">12:47 PM</p>
+                          <p className="text-lg font-bold text-gray-900 dark:text-white">
+                            1.245 ETH
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            ≈ $2,150.75 USD
+                          </p>
+                          <div className="flex items-center space-x-1 mt-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span className="text-xs text-green-600 dark:text-green-400">
+                              Wallet Secured
+                            </span>
+                          </div>
                         </div>
                       </div>
 
-                      {/* User Confirmation */}
-                      <div className="flex justify-end">
-                        <div className="bg-green-600 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">What's the name</p>
-                          <p className="text-xs text-green-200 mt-1">
-                            12:47 PM
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Account Name */}
+                      {/* Security Notification */}
                       <div className="flex items-start space-x-2">
-                        <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
-                          L
+                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          B
                         </div>
-                        <div className="bg-gray-800 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">
-                            The name associated with account number 0240256606
-                            is:
+                        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-xs">
+                          <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                            ⚠️ Security Tip
                           </p>
-                          <p className="text-sm font-medium text-white mt-1">
-                            SULAIMAN ABDULSEMU ADEWALE
+                          <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1">
+                            Never share your recovery phrase. BackPay will never ask for it.
                           </p>
-                          <p className="text-xs text-gray-400 mt-1">12:47 PM</p>
                         </div>
                       </div>
 
-                      {/* Final Confirmation */}
+                      {/* Transaction Security */}
                       <div className="flex justify-end">
-                        <div className="bg-green-600 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">Yes</p>
-                          <p className="text-xs text-green-200 mt-1">
-                            12:47 PM
-                          </p>
+                        <div className="bg-blue-500 rounded-2xl rounded-br-none px-4 py-3 max-w-xs">
+                          <p className="text-sm">send 0.1 ETH to +1234567890</p>
                         </div>
                       </div>
 
-                      {/* Transfer Confirmation */}
+                      {/* Transaction Security Check */}
                       <div className="flex items-start space-x-2">
-                        <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
-                          L
+                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          B
                         </div>
-                        <div className="bg-gray-800 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">
-                            Are you sure you want to transfer ₦2,000.00 to
-                            SULAIMAN ABDULSEMU ADEWALE (0240256606) at Guaranty
-                            Trust Bank?
+                        <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 max-w-xs">
+                          <p className="text-sm text-gray-800 dark:text-gray-200">
+                            🔍 Verifying transaction security...
                           </p>
-                          <p className="text-xs text-gray-400 mt-1">12:47 PM</p>
+                          <div className="flex items-center space-x-2 mt-2">
+                            <div className="w-3 h-3 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                              Checking recipient address
+                            </span>
+                          </div>
                         </div>
                       </div>
 
-                      {/* User Final Yes */}
-                      <div className="flex justify-end">
-                        <div className="bg-green-600 rounded-2xl px-4 py-3 max-w-xs">
-                          <p className="text-sm">Yes</p>
-                          <p className="text-xs text-green-200 mt-1">
-                            12:47 PM
+                      {/* Transaction Confirmed */}
+                      <div className="flex items-start space-x-2">
+                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          B
+                        </div>
+                        <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 max-w-xs">
+                          <div className="flex items-center space-x-2 text-green-600 dark:text-green-400">
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                            <span className="text-sm font-medium">Transaction Secured!</span>
+                          </div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            0.1 ETH sent to +1234567890
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Tx: 0x7d9...f4a2 • 12 confirmations
                           </p>
                         </div>
                       </div>
                     </div>
 
                     {/* Input Area */}
-                    <div className="px-6 pb-6">
-                      <div className="flex items-center space-x-2 bg-gray-800 rounded-full px-4 py-2">
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 4v16m8-8H4"
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center space-x-2">
+                        <button className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                        <div className="flex-1 bg-gray-100 dark:bg-gray-800 rounded-3xl px-4 py-2">
+                          <input
+                            type="text"
+                            placeholder="Type a message..."
+                            className="w-full bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-500 text-sm outline-none"
                           />
-                        </svg>
-                        <input
-                          type="text"
-                          placeholder="Type a message..."
-                          className="flex-1 bg-transparent text-white placeholder-gray-400 text-sm outline-none"
-                        />
-                        <svg
-                          className="w-5 h-5 text-primary-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                          />
-                        </svg>
+                        </div>
+                        <button className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                          </svg>
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Floating Account Card */}
+              {/* Floating Security Badge */}
               <motion.div
                 className="absolute -top-4 -right-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 border border-gray-100 dark:border-gray-700"
                 variants={floatingCardVariants}
@@ -435,21 +377,21 @@ const SecuritySection = () => {
                 animate={isInView ? 'visible' : 'hidden'}
               >
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">GT</span>
+                  <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">🔒</span>
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white text-sm">
-                      GTBank
+                      Wallet Secured
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      0001234567
+                      Encrypted & Local
                     </p>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Memory Indicator */}
+              {/* Blockchain Confirmation */}
               <motion.div
                 className="absolute -left-8 top-20 bg-white dark:bg-gray-800 rounded-2xl shadow-xl px-4 py-3 text-center"
                 variants={memoryIndicatorVariants}
@@ -457,12 +399,12 @@ const SecuritySection = () => {
                 animate={isInView ? 'visible' : 'hidden'}
               >
                 <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                  Last Transfer
+                  Block Confirmations
                 </div>
                 <div className="text-lg font-bold text-gray-900 dark:text-white">
-                  ₦2,000
+                  12
                 </div>
-                <div className="w-12 h-1 bg-primary-400 rounded-full mx-auto mt-2"></div>
+                <div className="w-12 h-1 bg-green-400 rounded-full mx-auto mt-2"></div>
               </motion.div>
             </motion.div>
           </motion.div>

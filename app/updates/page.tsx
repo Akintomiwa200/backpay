@@ -13,7 +13,7 @@ export const metadata = {
 
 import PageHeader from '@/components/page-header';
 import Cta from '@/components/cta';
-import Posts from '@/app/(default)/updates/posts';
+import Posts from '@/app/updates/posts';
 
 export default async function Updates() {
   const postsData: Promise<Post[]> = getAllPosts();

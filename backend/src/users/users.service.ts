@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
@@ -12,6 +12,14 @@ export class UsersService {
 
   async findByPhone(phoneNumber: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ phoneNumber }).exec();
+  }
+
+  async findById(id: string): Promise<UserDocument | null> {
+    return this.userModel.findById(id).exec();
+  }
+
+  async findByWalletAddress(walletAddress: string): Promise<UserDocument | null> {
+    return this.userModel.findOne({ walletAddress }).exec();
   }
 
   async create(userData: Partial<User>): Promise<UserDocument> {
@@ -39,6 +47,14 @@ export class UsersService {
     ).exec();
   }
 
+  async setPin(phoneNumber: string, encryptedPin: string): Promise<UserDocument | null> {
+    return this.userModel.findOneAndUpdate(
+      { phoneNumber },
+      { encryptedPin },
+      { new: true }
+    ).exec();
+  }
+
   async encryptPrivateKey(privateKey: string): Promise<string> {
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(privateKey, salt);
@@ -46,5 +62,62 @@ export class UsersService {
 
   async verifyPrivateKey(encryptedKey: string, privateKey: string): Promise<boolean> {
     return bcrypt.compare(privateKey, encryptedKey);
+  }
+
+  async incrementTransactionCount(phoneNumber: string, amount: number): Promise<void> {
+    await this.userModel.findOneAndUpdate(
+      { phoneNumber },
+      { 
+        $inc: { 
+          transactionCount: 1,
+          totalTransacted: amount
+        },
+        lastLogin: new Date()
+      }
+    ).exec();
+  }
+
+  async getAllUsers(skip = 0, limit = 10): Promise<{ users: UserDocument[]; total: number }> {
+    const [users, total] = await Promise.all([
+      this.userModel.find()
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      this.userModel.countDocuments().exec()
+    ]);
+
+    return { users, total };
+  }
+
+  async deleteUser(phoneNumber: string): Promise<boolean> {
+    const result = await this.userModel.deleteOne({ phoneNumber }).exec();
+    return result.deletedCount > 0;
+  }
+
+  async getUserStats(): Promise<{
+    totalUsers: number;
+    verifiedUsers: number;
+    totalTransactions: number;
+    totalVolume: number;
+  }> {
+    const stats = await this.userModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalUsers: { $sum: 1 },
+          verifiedUsers: { $sum: { $cond: ['$isVerified', 1, 0] } },
+          totalTransactions: { $sum: '$transactionCount' },
+          totalVolume: { $sum: '$totalTransacted' }
+        }
+      }
+    ]);
+
+    return stats[0] || {
+      totalUsers: 0,
+      verifiedUsers: 0,
+      totalTransactions: 0,
+      totalVolume: 0
+    };
   }
 }

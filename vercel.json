@@ -17,6 +17,5 @@
       "src": "/(.*)",
       "dest": "/frontend/$1"
     }
-  ],
-  "ignoreCommand": "git diff --quiet HEAD~1 HEAD -- frontend/ || echo \"Frontend changed\""
+  ]
 }

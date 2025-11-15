@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView, Variants } from 'framer-motion';
 import Image from 'next/image';
@@ -59,6 +58,26 @@ export default function Hero() {
     },
   };
 
+  // Online blockchain logos
+  const blockchainLogos = [
+    {
+      name: 'Ethereum',
+      url: 'https://cryptologos.cc/logos/ethereum-eth-logo.svg'
+    },
+    {
+      name: 'Polygon',
+      url: 'https://cryptologos.cc/logos/polygon-matic-logo.svg'
+    },
+    {
+      name: 'Binance',
+      url: 'https://cryptologos.cc/logos/bnb-bnb-logo.svg'
+    },
+    {
+      name: 'Arbitrum',
+      url: 'https://cryptologos.cc/logos/arbitrum-arb-logo.svg'
+    }
+  ];
+
   return (
     <motion.section
       ref={sectionRef}
@@ -109,7 +128,7 @@ export default function Hero() {
             >
               <Button
                 size="lg"
-                className="text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+                className="text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 px-8 py-3 text-lg"
                 onClick={() => {
                   const message = encodeURIComponent(
                     "Hi, I'd like to get started with BackPay!"
@@ -119,37 +138,6 @@ export default function Hero() {
               >
                 Start on WhatsApp
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-white text-gray-700 hover:bg-gray-100 dark:bg-transparent dark:text-gray-300 dark:hover:bg-gray-800"
-                asChild
-              >
-                <Link href="#features">
-                  <span className="mr-2">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </span>
-                  Watch Demo
-                </Link>
-              </Button>
             </motion.div>
 
             <motion.div variants={itemVariants} className="pt-4">
@@ -157,17 +145,21 @@ export default function Hero() {
                 Trusted by <span className="font-medium">5,000+</span> users across 50+ countries
               </p>
               <div className="flex space-x-6 mt-4">
-                {['ethereum', 'polygon', 'binance', 'arbitrum'].map((chain) => (
+                {blockchainLogos.map((chain) => (
                   <div
-                    key={chain}
+                    key={chain.name}
                     className="h-8 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all"
                   >
                     <Image
-                      src={`/images/chains/${chain}.svg`}
-                      alt={chain.charAt(0).toUpperCase() + chain.slice(1)}
+                      src={chain.url}
+                      alt={chain.name}
                       width={32}
                       height={32}
                       className="h-8 w-auto object-contain"
+                      onError={(e) => {
+                        // Fallback to colored placeholder if image fails to load
+                        e.currentTarget.style.display = 'none';
+                      }}
                     />
                   </div>
                 ))}

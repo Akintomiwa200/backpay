@@ -7,42 +7,42 @@ import { motion, useInView } from 'framer-motion';
 const blockchainPartners = [
   {
     name: 'Ethereum',
-    logo: '/images/chains/ethereum.svg',
+    logo: 'https://cryptologos.cc/logos/ethereum-eth-logo.svg',
     type: 'Blockchain'
   },
   {
     name: 'Polygon',
-    logo: '/images/chains/polygon.svg',
+    logo: 'https://cryptologos.cc/logos/polygon-matic-logo.svg',
     type: 'Layer 2'
   },
   {
     name: 'Binance Smart Chain',
-    logo: '/images/chains/binance.svg',
+    logo: 'https://cryptologos.cc/logos/bnb-bnb-logo.svg',
     type: 'Blockchain'
   },
   {
     name: 'Arbitrum',
-    logo: '/images/chains/arbitrum.svg',
+    logo: 'https://cryptologos.cc/logos/arbitrum-arb-logo.svg',
     type: 'Layer 2'
   },
   {
     name: 'Optimism',
-    logo: '/images/chains/optimism.svg',
+    logo: 'https://cryptologos.cc/logos/optimism-ethereum-op-logo.svg',
     type: 'Layer 2'
   },
   {
     name: 'Base',
-    logo: '/images/chains/base.svg',
+    logo: 'https://icons.llamao.fi/icons/chains/rsz_base.jpg',
     type: 'Layer 2'
   },
   {
     name: 'Avalanche',
-    logo: '/images/chains/avalanche.svg',
+    logo: 'https://cryptologos.cc/logos/avalanche-avax-logo.svg',
     type: 'Blockchain'
   },
   {
     name: 'Solana',
-    logo: '/images/chains/solana.svg',
+    logo: 'https://cryptologos.cc/logos/solana-sol-logo.svg',
     type: 'Blockchain'
   }
 ];
@@ -118,6 +118,10 @@ const PartnersBanner = () => {
                     width={64}
                     height={64}
                     className="object-contain"
+                    onError={(e) => {
+                      // Fallback to a simple colored div if image fails to load
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
                 </div>
                 <div className="text-center">
@@ -156,6 +160,9 @@ const PartnersBanner = () => {
                     width={64}
                     height={64}
                     className="object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
                 </div>
                 <div className="text-center">

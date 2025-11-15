@@ -1,13 +1,14 @@
 // app/auth/secret-question/page.jsx
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SecretQuestionSetup from '../../../components/SecretQuestionSetup';
 import PassphraseDisplay from '../../../components/PassphraseDisplay';
 import WalletComplete from '../../../components/WalletComplete';
 
-const SecretQuestionPage = () => {
+// Create a separate component that uses useSearchParams
+function SecretQuestionContent() {
   const [currentStep, setCurrentStep] = useState('questions');
   const [generatedPassphrase, setGeneratedPassphrase] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
@@ -64,6 +65,15 @@ const SecretQuestionPage = () => {
       onSuccess={handleQuestionsSuccess}
       onBack={() => router.push('/create-wallet')}
     />
+  );
+}
+
+// Main component with Suspense boundary
+const SecretQuestionPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SecretQuestionContent />
+    </Suspense>
   );
 };
 

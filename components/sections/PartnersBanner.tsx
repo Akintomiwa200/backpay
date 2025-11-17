@@ -230,7 +230,7 @@ const PartnersBanner = () => {
               const message = encodeURIComponent(
                 "Hi, I want to learn more about BackPay's multi-chain support!"
               );
-              window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+              window.open(`https://wa.me/+2438154975351?text=${message}`, '_blank');
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

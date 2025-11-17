@@ -380,7 +380,7 @@ const SupportSection = () => {
               const message = encodeURIComponent(
                 "Hi, I need help with a crypto transaction!"
               );
-              window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+              window.open(`https://wa.me/+2438154975351?text=${message}`, '_blank');
             }}
             className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-blue-700 transition-colors dark:bg-blue-500 dark:hover:bg-blue-600"
             initial={{ opacity: 0, y: 20 }}

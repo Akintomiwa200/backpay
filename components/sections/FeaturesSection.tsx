@@ -241,7 +241,7 @@ export default function FeaturesSection() {
               const message = encodeURIComponent(
                 "Hi, I want to explore all BackPay crypto features!"
               );
-              window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+              window.open(`https://wa.me/+2438154975351?text=${message}`, '_blank');
             }}
             whileHover={{ 
               scale: 1.05,

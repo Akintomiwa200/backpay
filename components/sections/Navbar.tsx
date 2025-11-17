@@ -24,7 +24,7 @@ const Navbar = () => {
         {/* CTA Button */}
         <div className="flex items-center space-x-4">
           <Link
-            href="https://wa.me/1234567890?text=Hi, I want to start using BackPay for crypto transactions!"
+            href="https://wa.me/+2438154975351?text=Hi, I want to start using BackPay for crypto transactions!"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-base hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"

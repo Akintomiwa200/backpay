@@ -334,7 +334,7 @@ const TransferSection = () => {
               const message = encodeURIComponent(
                 "Hi, I want to send crypto with BackPay!"
               );
-              window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+              window.open(`https://wa.me/+2438154975351?text=${message}`, '_blank');
             }}
             className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-blue-700 transition-colors dark:bg-blue-500 dark:hover:bg-blue-600"
             whileHover={{ scale: 1.05 }}

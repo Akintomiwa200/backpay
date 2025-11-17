@@ -15,7 +15,9 @@ export class AuthService {
   ) {}
 
   async validateUser(phoneNumber: string, pin: string): Promise<any> {
-    const user = await this.usersService.findByPhone(phoneNumber);
+    const user = await this.usersService.findByPhone(phoneNumber, {
+      includeSensitive: true,
+    });
     
     if (user && await this.verifyPin(pin, user.encryptedPin)) {
       const { encryptedPin, ...result } = user.toObject();

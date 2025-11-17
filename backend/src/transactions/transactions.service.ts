@@ -47,7 +47,11 @@ export class TransactionsService {
     return this.transactionModel.findOne({ transactionHash }).exec();
   }
 
-  async updateStatus(transactionHash: string, status: TransactionStatus, additionalData?: any): Promise<TransactionDocument | null> {
+  async updateStatus(
+    identifier: string,
+    status: TransactionStatus,
+    additionalData?: Record<string, any>,
+  ): Promise<TransactionDocument | null> {
     const updateData: any = { status };
     
     if (status === TransactionStatus.COMPLETED) {
@@ -58,8 +62,19 @@ export class TransactionsService {
       Object.assign(updateData, additionalData);
     }
 
+    if (!identifier) {
+      throw new Error('Transaction identifier is required to update status');
+    }
+
+    const filter = {
+      $or: [
+        { transactionHash: identifier },
+        { _id: identifier },
+      ],
+    };
+
     return this.transactionModel.findOneAndUpdate(
-      { transactionHash },
+      filter,
       updateData,
       { new: true }
     ).exec();
@@ -106,7 +121,7 @@ export class TransactionsService {
 
       if (result.success) {
         // Update transaction with blockchain details
-        await this.updateStatus(result.transactionHash, TransactionStatus.COMPLETED, {
+        await this.updateStatus(transaction.id, TransactionStatus.COMPLETED, {
           transactionHash: result.transactionHash,
           blockNumber: result.blockNumber,
           notified: true,
@@ -122,11 +137,14 @@ export class TransactionsService {
         
         return {
           success: true,
-          transaction: completedTransaction,
+          transaction: completedTransaction || undefined,
         };
       } else {
         // Update transaction as failed
-        await this.updateStatus(transaction.transactionHash, TransactionStatus.FAILED, {
+        await this.updateStatus(
+          transaction.transactionHash || transaction.id,
+          TransactionStatus.FAILED,
+          {
           notified: true,
         });
 

@@ -2,6 +2,7 @@ import { Controller, Get, Put, Body, Param, UseGuards, Query, Delete } from '@ne
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -9,6 +10,37 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 @ApiBearerAuth()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Public()
+  @Get()
+  @ApiOperation({ summary: 'Get paginated users (public)' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async listUsers(
+    @Query('page') page = 1,
+    @Query('limit') limit = 10,
+  ) {
+    const { users, total } = await this.usersService.getAllUsers(
+      Math.max((Number(page) || 1) - 1, 0) * (Number(limit) || 10),
+      Number(limit) || 10,
+    );
+
+    const sanitized = users.map(user => {
+      const { encryptedPrivateKey, encryptedPin, ...safeUser } = user.toObject();
+      return safeUser;
+    });
+
+    return {
+      success: true,
+      users: sanitized,
+      pagination: {
+        page: Number(page) || 1,
+        limit: Number(limit) || 10,
+        total,
+        pages: Math.ceil(total / (Number(limit) || 10)) || 0,
+      },
+    };
+  }
 
   @Get('profile/:phoneNumber')
   @ApiOperation({ summary: 'Get user profile by phone number' })

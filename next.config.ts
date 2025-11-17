@@ -1,8 +1,17 @@
 import type { NextConfig } from "next";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1';
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || apiUrl;
+
 const nextConfig: NextConfig = {
   images: { 
     unoptimized: true 
+  },
+
+  env: {
+    NEXT_PUBLIC_API_URL: apiUrl,
+    NEXT_PUBLIC_BACKEND_URL: backendUrl,
+    NEXT_LASKAD_API: process.env.NEXT_LASKAD_API || backendUrl,
   },
   
   // Add turbopack config to resolve the error

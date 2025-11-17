@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnModuleInit, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, LocalAuth, Message } from 'whatsapp-web.js';
 import * as qrcode from 'qrcode-terminal';
@@ -16,6 +16,7 @@ export class WhatsappService implements OnModuleInit {
     private configService: ConfigService,
     private web3Service: Web3Service,
     private usersService: UsersService,
+    @Inject(forwardRef(() => OnboardingService))
     private onboardingService: OnboardingService,
   ) {}
 

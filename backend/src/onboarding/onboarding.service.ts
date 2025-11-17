@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, forwardRef } from '@nestjs/common';
 import { Message } from 'whatsapp-web.js';
 import { Web3Service } from '../web3/web3.service';
 import { UsersService } from '../users/users.service';
@@ -19,6 +19,7 @@ export class OnboardingService {
   constructor(
     private web3Service: Web3Service,
     private usersService: UsersService,
+    @Inject(forwardRef(() => WhatsappService))
     private whatsappService: WhatsappService,
   ) {}
 

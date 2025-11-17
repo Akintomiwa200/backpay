@@ -60,5 +60,4 @@ export const TransactionSchema = SchemaFactory.createForClass(Transaction);
 
 TransactionSchema.index({ fromPhone: 1, createdAt: -1 });
 TransactionSchema.index({ toPhone: 1, createdAt: -1 });
-TransactionSchema.index({ transactionHash: 1 }, { unique: true, sparse: true });
 

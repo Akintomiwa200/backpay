@@ -27,7 +27,10 @@ export class Web3Service {
         this.configService.get<string>('CONTRACT_ADDRESS');
 
       if (!providerUrl || !privateKey || !contractAddress) {
-        throw new Error('Missing Web3 configuration values');
+        this.logger.warn(
+          'Web3 configuration missing (provider/private key/contract). Blockchain features disabled until env vars are set.',
+        );
+        return;
       }
 
       this.provider = new JsonRpcProvider(providerUrl);

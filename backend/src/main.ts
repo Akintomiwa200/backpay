@@ -7,12 +7,13 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const reflector = app.get(Reflector);
+  const apiPrefix = configService.get('app.apiPrefix') || 'api/v1';
+  app.setGlobalPrefix(apiPrefix);
 
   // Global validation
   app.useGlobalPipes(new ValidationPipe({
@@ -34,9 +35,6 @@ async function bootstrap() {
     new TransformInterceptor(),
     new LoggingInterceptor(),
   );
-
-  // Global guards
-  app.useGlobalGuards(new JwtAuthGuard(reflector));
 
   // CORS
   app.enableCors({
@@ -78,6 +76,12 @@ async function bootstrap() {
         operationsSorter: 'alpha',
       },
     });
+
+    const server = app.getHttpAdapter().getInstance();
+    const swaggerJsonPath = `/${apiPrefix}/swagger`;
+    server.get(swaggerJsonPath, (_req, res) => {
+      res.json(document);
+    });
   }
 
   const port = configService.get('app.port') || configService.get('PORT') || 3000;
@@ -92,5 +96,6 @@ async function bootstrap() {
   
   console.log(`🔗 Frontend URL: ${configService.get('frontend.url')}`);
   console.log(`💾 Database: ${configService.get('database.uri') ? 'Connected' : 'Not configured'}`);
+  console.log(`🛣️ API Prefix: /${apiPrefix}`);
 }
 bootstrap();

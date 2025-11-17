@@ -1,10 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  'http://localhost:3000/api/v1';
+
 export const axiosInstance = axios.create({
-  baseURL: '/api/v1', // Set your base URL here
+  baseURL: API_BASE_URL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    // Add any other default headers here
   },
 });
 

@@ -3,8 +3,9 @@ export default () => ({
   app: {
     name: 'BackPay',
     env: process.env.NODE_ENV || 'development',
-    port: parseInt(process.env.PORT, 10) || 3000,
+    port: parseInt(process.env.PORT ?? '3000', 10) || 3000,
     url: process.env.APP_URL || 'http://localhost:3000',
+    apiPrefix: process.env.API_PREFIX || 'api/v1',
   },
 
   // Database
@@ -28,13 +29,13 @@ export default () => ({
   // WhatsApp
   whatsapp: {
     sessionPath: process.env.WHATSAPP_SESSION_PATH || './whatsapp-sessions',
-    qrTimeout: parseInt(process.env.WHATSAPP_QR_TIMEOUT, 10) || 60000,
+    qrTimeout: parseInt(process.env.WHATSAPP_QR_TIMEOUT ?? '60000', 10) || 60000,
   },
 
   // Security
   security: {
-    throttleLimit: parseInt(process.env.THROTTLE_LIMIT, 10) || 10,
-    throttleTtl: parseInt(process.env.THROTTLE_TTL, 10) || 60,
+    throttleLimit: parseInt(process.env.THROTTLE_LIMIT ?? '10', 10) || 10,
+    throttleTtl: parseInt(process.env.THROTTLE_TTL ?? '60', 10) || 60,
   },
 
   // Frontend

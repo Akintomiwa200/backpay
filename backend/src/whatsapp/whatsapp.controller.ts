@@ -175,7 +175,11 @@ export class WhatsappController {
     }
 
     try {
-      const results = [];
+      const results: {
+        phoneNumber: string;
+        status: 'sent' | 'failed';
+        error?: string;
+      }[] = [];
       let successCount = 0;
       let failureCount = 0;
 

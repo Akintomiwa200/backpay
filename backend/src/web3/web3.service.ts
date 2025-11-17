@@ -1,14 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ethers } from 'ethers';
+import { Contract, JsonRpcProvider, Wallet, formatEther, parseEther } from 'ethers';
 import * as BackPayABI from './abi/BackPay.json';
 
 @Injectable()
 export class Web3Service {
   private readonly logger = new Logger(Web3Service.name);
-  private provider: ethers.providers.JsonRpcProvider;
-  private wallet: ethers.Wallet;
-  private contract: ethers.Contract;
+  private provider: JsonRpcProvider;
+  private wallet: Wallet;
+  private contract: Contract;
 
   constructor(private configService: ConfigService) {
     this.initializeWeb3();
@@ -16,13 +16,17 @@ export class Web3Service {
 
   private initializeWeb3() {
     try {
-      const providerUrl = this.configService.get('WEB3_PROVIDER_URL');
-      const privateKey = this.configService.get('PRIVATE_KEY');
-      const contractAddress = this.configService.get('CONTRACT_ADDRESS');
+      const providerUrl = this.configService.get<string>('WEB3_PROVIDER_URL');
+      const privateKey = this.configService.get<string>('PRIVATE_KEY');
+      const contractAddress = this.configService.get<string>('CONTRACT_ADDRESS');
 
-      this.provider = new ethers.providers.JsonRpcProvider(providerUrl);
-      this.wallet = new ethers.Wallet(privateKey, this.provider);
-      this.contract = new ethers.Contract(
+      if (!providerUrl || !privateKey || !contractAddress) {
+        throw new Error('Missing Web3 configuration values');
+      }
+
+      this.provider = new JsonRpcProvider(providerUrl);
+      this.wallet = new Wallet(privateKey, this.provider);
+      this.contract = new Contract(
         contractAddress,
         BackPayABI.abi,
         this.wallet,
@@ -36,12 +40,16 @@ export class Web3Service {
 
   async sendTransaction(to: string, amount: string, fromPhone: string) {
     try {
+      if (!this.contract) {
+        throw new Error('Web3 contract not initialized');
+      }
+
       const tx = await this.contract.sendPayment(
         to,
-        ethers.utils.parseEther(amount),
+        parseEther(amount),
         fromPhone,
         {
-          gasLimit: 100000,
+          gasLimit: 100000n,
         }
       );
 
@@ -60,7 +68,7 @@ export class Web3Service {
   async getBalance(address: string): Promise<string> {
     try {
       const balance = await this.provider.getBalance(address);
-      return ethers.utils.formatEther(balance);
+      return formatEther(balance);
     } catch (error) {
       this.logger.error('Failed to get balance', error);
       throw error;
@@ -69,7 +77,7 @@ export class Web3Service {
 
   async createWallet(): Promise<{ address: string; privateKey: string }> {
     try {
-      const wallet = ethers.Wallet.createRandom();
+      const wallet = Wallet.createRandom();
       return {
         address: wallet.address,
         privateKey: wallet.privateKey,

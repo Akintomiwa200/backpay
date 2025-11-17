@@ -10,8 +10,17 @@ export class UsersService {
 
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async findByPhone(phoneNumber: string): Promise<UserDocument | null> {
-    return this.userModel.findOne({ phoneNumber }).exec();
+  async findByPhone(
+    phoneNumber: string,
+    options?: { includeSensitive?: boolean },
+  ): Promise<UserDocument | null> {
+    const query = this.userModel.findOne({ phoneNumber });
+
+    if (options?.includeSensitive) {
+      query.select('+encryptedPrivateKey +encryptedPin');
+    }
+
+    return query.exec();
   }
 
   async findById(id: string): Promise<UserDocument | null> {

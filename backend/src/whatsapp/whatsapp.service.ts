@@ -144,6 +144,14 @@ What would you like to do?`;
   private async handleSendPayment(phoneNumber: string, message: string, originalMessage: Message) {
     const user = await this.usersService.findByPhone(phoneNumber);
     
+    if (!user) {
+      await this.sendMessage(
+        originalMessage.from,
+        `❌ We couldn't find your BackPay profile. Please type "CREATE" to get started.`,
+      );
+      return;
+    }
+
     if (!user.walletAddress) {
       await this.sendMessage(
         originalMessage.from,
@@ -180,6 +188,14 @@ What would you like to do?`;
   private async handleCheckBalance(phoneNumber: string) {
     const user = await this.usersService.findByPhone(phoneNumber);
     
+    if (!user) {
+      await this.sendMessage(
+        `${phoneNumber}@c.us`,
+        `❌ We couldn't find your BackPay account. Please type "CREATE" to start onboarding.`,
+      );
+      return;
+    }
+
     if (!user.walletAddress) {
       await this.sendMessage(
         `${phoneNumber}@c.us`,

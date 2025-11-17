@@ -81,7 +81,7 @@ const CTASection = () => {
     }
 
     // Prepare the WhatsApp message
-    const phoneNumber = '1234567890'; // Replace with your BackPay WhatsApp number
+    const phoneNumber = '+2438154975351'; // Replace with your BackPay WhatsApp number
     const message = encodeURIComponent(
       "Hi BackPay team! I'd like to get started with crypto transactions through WhatsApp. Can you help me set up my wallet?"
     );

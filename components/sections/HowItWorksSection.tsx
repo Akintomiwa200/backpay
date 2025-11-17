@@ -108,7 +108,7 @@ export default function HowItWorksSection() {
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              '💸 "send 0.1 ETH to +1234567890"',
+              '💸 "send 0.1 ETH to +2438154975351"',
               '💰 "balance"',
               '👤 "create wallet"',
               '📊 "transaction history"',

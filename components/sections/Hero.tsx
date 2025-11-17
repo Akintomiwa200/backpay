@@ -133,7 +133,7 @@ export default function Hero() {
                   const message = encodeURIComponent(
                     "Hi, I'd like to get started with BackPay!"
                   );
-                  window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+                  window.open(`https://wa.me/+2438154975351?text=${message}`, '_blank');
                 }}
               >
                 Start on WhatsApp

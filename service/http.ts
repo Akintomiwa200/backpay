@@ -195,6 +195,55 @@ class Http {
       throw err;
     }
   };
+  httpCreateWallet = async (data: {
+    userId: string;
+    answers: any[];
+    action: 'create' | 'recover';
+  }) => {
+    try {
+      const response = await httpPost(`${endpoints.AUTH}`, data);
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  httpGetWalletBalance = async (userId: string, address?: string) => {
+    try {
+      const params: any = {};
+      if (userId) params.userId = userId;
+      if (address) params.address = address;
+      
+      const response = await httpGet(`${endpoints.WALLET}`, params);
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  httpSendTransaction = async (data: {
+    from: string;
+    to: string;
+    amount: string;
+    privateKey: string;
+  }) => {
+    try {
+      const response = await httpPost(`${endpoints.WALLET}`, data);
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  httpGetTransactions = async (address: string) => {
+    try {
+      const response = await httpGet(`${endpoints.TRANSACTIONS}?address=${address}`);
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
 }
 
 const http = new Http();

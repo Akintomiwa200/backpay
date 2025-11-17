@@ -16,9 +16,15 @@ export class Web3Service {
 
   private initializeWeb3() {
     try {
-      const providerUrl = this.configService.get<string>('WEB3_PROVIDER_URL');
-      const privateKey = this.configService.get<string>('PRIVATE_KEY');
-      const contractAddress = this.configService.get<string>('CONTRACT_ADDRESS');
+      const providerUrl =
+        this.configService.get<string>('web3.providerUrl') ||
+        this.configService.get<string>('WEB3_PROVIDER_URL');
+      const privateKey =
+        this.configService.get<string>('web3.privateKey') ||
+        this.configService.get<string>('PRIVATE_KEY');
+      const contractAddress =
+        this.configService.get<string>('web3.contractAddress') ||
+        this.configService.get<string>('CONTRACT_ADDRESS');
 
       if (!providerUrl || !privateKey || !contractAddress) {
         throw new Error('Missing Web3 configuration values');

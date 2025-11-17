@@ -79,11 +79,22 @@ export class TransactionsController {
     }
   }
 
-  @Get('stats/:phoneNumber?')
-  @ApiOperation({ summary: 'Get transaction statistics' })
-  async getTransactionStats(@Param('phoneNumber') phoneNumber?: string) {
-    const stats = await this.transactionsService.getTransactionStats(phoneNumber);
+  @Get('stats')
+  @ApiOperation({ summary: 'Get global transaction statistics' })
+  async getGlobalTransactionStats() {
+    const stats = await this.transactionsService.getTransactionStats();
     
+    return {
+      success: true,
+      stats,
+    };
+  }
+
+  @Get('stats/user/:phoneNumber')
+  @ApiOperation({ summary: 'Get transaction statistics for a user' })
+  async getTransactionStatsForUser(@Param('phoneNumber') phoneNumber: string) {
+    const stats = await this.transactionsService.getTransactionStats(phoneNumber);
+
     return {
       success: true,
       stats,

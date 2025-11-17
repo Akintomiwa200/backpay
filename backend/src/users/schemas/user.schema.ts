@@ -45,6 +45,5 @@ export class User {
 export const UserSchema = SchemaFactory.createForClass(User);
 
 // Index for better query performance
-UserSchema.index({ phoneNumber: 1 });
 UserSchema.index({ walletAddress: 1 });
 UserSchema.index({ createdAt: -1 });

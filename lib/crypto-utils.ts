@@ -34,6 +34,9 @@ export function generateMnemonicPhrase(strength: number = 256): string {
   return generateMnemonic(strength);
 }
 
+// Alias for backward compatibility
+export const generateMnemonic = generateMnemonicPhrase;
+
 export function validateMnemonic(mnemonic: string): boolean {
   return bip39Validate(mnemonic) && ethers.Mnemonic.isValidMnemonic(mnemonic);
 }
@@ -318,5 +321,5 @@ export {
   ethers,
   HDKey,
   Wallet as EthereumJsWallet
-  generateMnemonicPhrase as generateMnemonic
+  // Removed the problematic export - using the alias above instead
 };

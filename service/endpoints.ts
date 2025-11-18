@@ -7,4 +7,7 @@ export default Object.freeze({
   GET_ORDER_DETAILS: (id: string) => `/pay/${id}`,
   PAY: '/pay',
   CANCEL_TRANSACTION: '/cancel-transaction',
+  AUTH: '/auth',
+  WALLET: '/wallet',
+  TRANSACTIONS: '/transactions',
 });

@@ -3,6 +3,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useRegisterSetQuestionMutate } from '@/hooks/useRegisterMutation';
+
 
 const SecretQuestionSetup = ({ onSuccess, onBack }) => {
   const [answers, setAnswers] = useState({});

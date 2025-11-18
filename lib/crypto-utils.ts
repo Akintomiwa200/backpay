@@ -318,4 +318,5 @@ export {
   ethers,
   HDKey,
   Wallet as EthereumJsWallet
+  generateMnemonicPhrase as generateMnemonic
 };
